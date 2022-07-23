@@ -36,30 +36,29 @@ public class Cifracesar {
         return texto.toString();
     }
     
-    public static void main(String[] args) {
-    
-        try {
-            Scanner entrada = new Scanner(System.in);
-    
-            System.out.println("*****************************************************");
-    
-            System.out.print("Informe o texto a ser criptografado: ");
-            String texto = entrada.nextLine();
-            System.out.print("Informe a chave de deslocamento: ");
-            int chave = entrada.nextInt();
-    
-            String textoCriptografado = encriptar(chave, texto);
-            String textoDescriptografado = decriptar(chave, textoCriptografado);
-    
-            System.out.println("\n\nTEXTO CRIPTOGRAFADO: " + textoCriptografado);
-            System.out.println("TEXTO DESCRIPTOGRAFADO: " + textoDescriptografado);
-    
-            System.out.println("*****************************************************");
-    
-        } catch (RuntimeException e) {
-            System.out.println("A chave de deslocamento foi informada incorretamente.");
-            System.out.println("Execute o programa novamente e entre com uma chave valida.");
+    public static void main(String[] args){
+        int what_do = Integer.parseInt(JOptionPane.showInputDialog("Digite 1 para criptografar e 2 para decriptografar"));
+
+        if (what_do == 1){
+            String messageOriginal = JOptionPane.showInputDialog("Digite a mensagem: ");
+            int key = Integer.parseInt(JOptionPane.showInputDialog( "Digite a chave: "));
+            
+            String textCript = encriptar(key, messageOriginal);
+            JOptionPane.showMessageDialog(null," Mensagem criptografada: '"+textCript+"'.\nA mensagem criptografada já está na sua àrea de transferencia, basta colar onde quer enviar.\nNão se esqueça da chave!","Criptografia de Cesar",JOptionPane.INFORMATION_MESSAGE);
+            StringSelection stringSelection = new StringSelection(textCript);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
         }
-    
+        if (what_do == 2){
+            String textCifr = JOptionPane.showInputDialog("Digite a mensagem: ");
+            int key = Integer.parseInt(JOptionPane.showInputDialog( "Digite a chave: "));
+            String textCript =decriptar(key, textCifr);
+            JOptionPane.showMessageDialog(null," Mensagem criptografada: '"+textCript+"'.\nA mensagem criptografada já está na sua àrea de transferencia, basta colar onde quer enviar.\nNão se esqueça da chave!","Criptografia de Cesar",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null," Mensagem "+textCript,"Criptografia de Cesar",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(null," Não entendi, tente novamente!","Criptografia de Cesar",JOptionPane.INFORMATION_MESSAGE);
+        }		
+
     }
-    }
+}
